@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:blogs_app/views/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../controllers/auth_controller.dart';
 import '../utils/constants.dart';
 import '../widgets/custom_text.dart';
 
@@ -15,10 +15,12 @@ class SplashhScreen extends StatefulWidget {
 }
 
 class _SplashhScreenState extends State<SplashhScreen> {
+  final authController = Get.put(AuthenticateController());
+
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 2), () => Get.offAll(const LoginScreen()));
+    Timer(const Duration(seconds: 2), () => authController.checkLoginStatus());
   }
 
   @override

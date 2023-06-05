@@ -1,5 +1,5 @@
 class StringsManager {
-  static const String appName = 'TopShop';
+  static const String appName = 'Bloggy';
   static const String firstTimeLogin =
       'Account verification email is sent to you. Please verify your account to login.';
   static const String firstTimeLoginTitle = 'First Login to Proceed';
@@ -12,19 +12,17 @@ class StringsManager {
   static const String alreadyHaveAccTxt = 'Already have an account? ';
   static const String welcomTxt = 'Welcome Back';
   static const String offlineTxt = "You're Offline.";
-  static const String myProductsTxt = "My Products";
-  static const String allProductsTxt = "All Products";
+  static const String myBlogsTxt = "My Blogs";
+  static const String allBlogsTxt = "All Blogs";
   static const String myCartTxt = "My Cart";
   static const String myOrdersTxt = "My Orders";
   static const String favouriteTxt = "Favourite Products";
   static const String ordersPlacedTxt = "Orders Log";
   static const String addressTxt = "Address";
-  static const String addProdTxt = "Add Product";
-  static const String editProdTxt = "Edit Product";
-  static const String prodNameTxt = "Product Name";
-  static const String prodImgTxt = "Product Image";
-  static const String priceTxt = "Price";
-  static const String stockQtyTxt = "Stock Quantity";
+  static const String addBlogTxt = "Add Blog";
+  static const String editBlogTxt = "Edit Blog";
+  static const String prodNameTxt = "Blog Title";
+  static const String prodImgTxt = "Blog Image";
 
   static const String descriptionTxt = 'Description';
   static const String registerNowTxt = 'Create your account';
@@ -52,8 +50,7 @@ class StringsManager {
 
 class ErrorManager {
   // form field error
-  static const String kProductNameNullError = 'Please enter product name';
-  static const String kaddressNullError = 'Please enter your address';
+  static const String kBlogNameNullError = 'Please enter blog name';
   static const String kUserNameNullError = 'Please enter your name';
   static const String kInvalidPriceError =
       'Please enter a price greater than 0.';
