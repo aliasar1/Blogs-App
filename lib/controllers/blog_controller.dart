@@ -187,26 +187,26 @@ class BlogController extends GetxController {
   Future<void> toggleFavoriteStatus(Blog blog) async {
     try {
       var userDocRef =
-          firestore.collection('favorites').doc(firebaseAuth.currentUser!.uid);
+          firestore.collection('bookmark').doc(firebaseAuth.currentUser!.uid);
       var userDoc = await userDocRef.get();
 
       if (userDoc.exists) {
-        var blogIds = userDoc.data()?['BlogIds'] ?? [];
+        var blogIds = userDoc.data()?['blogIds'] ?? [];
 
         if (blogIds.contains(blog.id)) {
           blogIds.remove(blog.id);
-          Get.snackbar('Success!', 'Blog removed from favorites.');
+          Get.snackbar('Success!', 'Blog removed from bookmarks.');
         } else {
           blogIds.add(blog.id);
-          Get.snackbar('Success!', 'Blog added to favorites.');
+          Get.snackbar('Success!', 'Blog added to bookmarks.');
         }
 
-        await userDocRef.update({'BlogIds': blogIds});
+        await userDocRef.update({'blogIds': blogIds});
       } else {
         await userDocRef.set({
-          'BlogIds': [blog.id]
+          'blogIds': [blog.id]
         });
-        Get.snackbar('Success!', 'Blog added to favorites.');
+        Get.snackbar('Success!', 'Blog added to bookmarks.');
       }
 
       fetchFavoriteBlogs(firebaseAuth.currentUser!.uid);
@@ -218,7 +218,7 @@ class BlogController extends GetxController {
   Future<bool> getFavoriteStatus(String blogId) async {
     try {
       var userDocRef =
-          firestore.collection('favorites').doc(firebaseAuth.currentUser!.uid);
+          firestore.collection('bookmark').doc(firebaseAuth.currentUser!.uid);
       var userDoc = await userDocRef.get();
 
       if (userDoc.exists) {
@@ -237,7 +237,7 @@ class BlogController extends GetxController {
 
   Future<List<Blog>> fetchFavoriteBlogs(String userId) async {
     try {
-      var userDocRef = firestore.collection('favorites').doc(userId);
+      var userDocRef = firestore.collection('bookmark').doc(userId);
       var userDoc = await userDocRef.get();
 
       if (userDoc.exists) {

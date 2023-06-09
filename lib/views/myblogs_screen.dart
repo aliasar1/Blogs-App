@@ -1,8 +1,6 @@
 import 'package:blogs_app/controllers/blog_controller.dart';
-import 'package:blogs_app/models/blog_model.dart';
-import 'package:blogs_app/utils/extensions.dart';
+
 import 'package:blogs_app/views/add_blog_screen.dart';
-import 'package:blogs_app/views/blog_overview_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,6 +8,7 @@ import '../controllers/search_controller.dart' as ctrl;
 import '../controllers/auth_controller.dart';
 import '../utils/constants.dart';
 import '../utils/strings_manager.dart';
+import '../widgets/blog_card.dart';
 import '../widgets/custom_drawer.dart';
 import '../widgets/custom_search.dart';
 import '../widgets/custom_text.dart';
@@ -85,6 +84,10 @@ class _MyBlogsScreenState extends State<MyBlogsScreen> {
                           itemCount: searchController.searchedBlogs.length,
                           itemBuilder: (ctx, i) {
                             final blog = searchController.searchedBlogs[i];
+                            return blog.authorId ==
+                                    firebaseAuth.currentUser!.uid
+                                ? BlogCard(blog: blog)
+                                : Container();
                           },
                         ),
                       );
@@ -92,16 +95,24 @@ class _MyBlogsScreenState extends State<MyBlogsScreen> {
                       return const Column(
                         children: [
                           SizedBox(height: Constants.sizeXL * 3),
-                          // NoProductTemplate(),
+                          Center(
+                            child: Txt(
+                              text: "You haven't added any blog.",
+                              textAlign: TextAlign.center,
+                              fontWeight: Constants.regular,
+                              fontSize: Constants.textFontSize,
+                              color: Constants.primaryColor,
+                            ),
+                          )
                         ],
                       );
                     } else {
                       return Expanded(
                         child: ListView.builder(
                           padding: const EdgeInsets.all(10.0),
-                          itemCount: blogController.blogs.length,
+                          itemCount: blogController.myBlogs.length,
                           itemBuilder: (ctx, i) {
-                            final blog = blogController.blogs[i];
+                            final blog = blogController.myBlogs[i];
                             return BlogCard(blog: blog);
                           },
                         ),
@@ -122,124 +133,6 @@ class _MyBlogsScreenState extends State<MyBlogsScreen> {
               Icons.add,
               color: Constants.whiteColor,
             )),
-      ),
-    );
-  }
-}
-
-class BlogCard extends StatelessWidget {
-  const BlogCard({
-    super.key,
-    required this.blog,
-  });
-
-  final Blog blog;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Get.to(BlogOverviewScreen(
-          blog: blog,
-        ));
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Constants.backgroundColor,
-        ),
-        constraints: const BoxConstraints(
-          maxHeight: 130,
-          minHeight: 20,
-        ),
-        margin: const EdgeInsets.symmetric(
-          vertical: Constants.marginXS,
-        ),
-        width: double.infinity,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: Constants.marginXS,
-            horizontal: Constants.marginXS,
-          ),
-          child: Row(
-            children: [
-              // SizedBox(
-              //   width: 140,
-              //   height: 150,
-              //   child: blog.imageUrl == ""
-              //       ? const Center(
-              //           child: Icon(
-              //             Icons.sticky_note_2,
-              //             color: Constants.secondaryColor,
-              //             size: 60,
-              //           ),
-              //         )
-              //       : Image.network(
-              //           blog.imageUrl,
-              //           loadingBuilder:
-              //               (BuildContext context,
-              //                   Widget child,
-              //                   ImageChunkEvent?
-              //                       loadingProgress) {
-              //             if (loadingProgress == null) {
-              //               return child;
-              //             }
-              //             return Center(
-              //               child:
-              //                   CircularProgressIndicator(
-              //                 color:
-              //                     Constants.secondaryColor,
-              //                 value: loadingProgress
-              //                             .expectedTotalBytes !=
-              //                         null
-              //                     ? loadingProgress
-              //                             .cumulativeBytesLoaded /
-              //                         loadingProgress
-              //                             .expectedTotalBytes!
-              //                     : null,
-              //               ),
-              //             );
-              //           },
-              //           errorBuilder: (BuildContext context,
-              //               Object exception,
-              //               StackTrace? stackTrace) {
-              //             return const Icon(Icons.error);
-              //           },
-              //         ),
-              // ),
-              const SizedBox(
-                width: 12,
-              ),
-              Flexible(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Txt(
-                      text: blog.title.capitalizeFirstOfEach,
-                      textAlign: TextAlign.start,
-                      useOverflow: true,
-                      fontWeight: Constants.bold,
-                      fontSize: Constants.titleFontSize,
-                      color: Constants.primaryColor,
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Txt(
-                      text: blog.description.capitalizeFirstOfEach,
-                      textAlign: TextAlign.start,
-                      maxLines: 4,
-                      useOverflow: true,
-                      fontWeight: Constants.regular,
-                      fontSize: Constants.subTitleFontSize,
-                      color: Constants.primaryColor,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }

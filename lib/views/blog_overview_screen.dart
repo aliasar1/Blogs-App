@@ -1,6 +1,7 @@
 import 'package:blogs_app/controllers/blog_controller.dart';
 import 'package:blogs_app/utils/extensions.dart';
 import 'package:blogs_app/views/add_blog_screen.dart';
+import 'package:blogs_app/views/home_screen.dart';
 import 'package:blogs_app/views/myblogs_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,9 +12,11 @@ import '../utils/constants.dart';
 import '../widgets/custom_text.dart';
 
 class BlogOverviewScreen extends StatelessWidget {
-  BlogOverviewScreen({super.key, required this.blog});
+  BlogOverviewScreen(
+      {super.key, required this.blog, this.isHomePageRoute = false});
 
   final Blog blog;
+  final bool isHomePageRoute;
   final controller = Get.put(BlogController());
 
   @override
@@ -28,7 +31,9 @@ class BlogOverviewScreen extends StatelessWidget {
               color: Constants.secondaryColor,
             ),
             onPressed: () {
-              Get.offAll(MyBlogsScreen());
+              isHomePageRoute
+                  ? Get.offAll(const HomeScreen())
+                  : Get.offAll(MyBlogsScreen());
             },
           ),
           backgroundColor: Constants.scaffoldBgColor,
@@ -65,67 +70,71 @@ class BlogOverviewScreen extends StatelessWidget {
             ),
           ),
         ),
-        floatingActionButton: SpeedDial(
-          animatedIcon: AnimatedIcons.menu_close,
-          backgroundColor: Constants.secondaryColor,
-          activeBackgroundColor: Constants.secondaryColor,
-          overlayOpacity: 0,
-          children: [
-            SpeedDialChild(
-              child: const Icon(
-                Icons.delete,
-                color: Constants.lightSecondaryColor,
-              ),
-              onTap: () => {
-                Get.dialog(
-                  AlertDialog(
-                    backgroundColor: Constants.scaffoldBgColor,
-                    title: const Text('Confirm Delete Blog'),
-                    content: const Text(
-                      'Are you sure you want to delete the blog?',
+        floatingActionButton: isHomePageRoute
+            ? null
+            : SpeedDial(
+                animatedIcon: AnimatedIcons.menu_close,
+                backgroundColor: Constants.secondaryColor,
+                activeBackgroundColor: Constants.secondaryColor,
+                overlayOpacity: 0,
+                children: [
+                  SpeedDialChild(
+                    child: const Icon(
+                      Icons.delete,
+                      color: Constants.lightSecondaryColor,
                     ),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Get.back();
-                        },
-                        child: const Text(
-                          'Cancel',
-                          style: TextStyle(color: Constants.secondaryColor),
+                    onTap: () => {
+                      Get.dialog(
+                        AlertDialog(
+                          backgroundColor: Constants.scaffoldBgColor,
+                          title: const Text('Confirm Delete Blog'),
+                          content: const Text(
+                            'Are you sure you want to delete the blog?',
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Get.back();
+                              },
+                              child: const Text(
+                                'Cancel',
+                                style:
+                                    TextStyle(color: Constants.secondaryColor),
+                              ),
+                            ),
+                            ElevatedButton(
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Constants.secondaryColor)),
+                              onPressed: () async {
+                                controller.deleteBlog(blog.id);
+                                Get.offAll(MyBlogsScreen());
+                              },
+                              child: const Text(
+                                'Delete',
+                                style:
+                                    TextStyle(color: Constants.backgroundColor),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
-                                Constants.secondaryColor)),
-                        onPressed: () async {
-                          controller.deleteBlog(blog.id);
-                          Get.offAll(MyBlogsScreen());
-                        },
-                        child: const Text(
-                          'Delete',
-                          style: TextStyle(color: Constants.backgroundColor),
-                        ),
-                      ),
-                    ],
+                    },
                   ),
-                ),
-              },
-            ),
-            SpeedDialChild(
-              child: const Icon(
-                Icons.edit,
-                color: Constants.lightSecondaryColor,
+                  SpeedDialChild(
+                    child: const Icon(
+                      Icons.edit,
+                      color: Constants.lightSecondaryColor,
+                    ),
+                    onTap: () {
+                      Get.to(AddBlogScreen(
+                        isEdit: true,
+                        blog: blog,
+                      ));
+                    },
+                  ),
+                ],
               ),
-              onTap: () {
-                Get.to(AddBlogScreen(
-                  isEdit: true,
-                  blog: blog,
-                ));
-              },
-            ),
-          ],
-        ),
       ),
     );
   }

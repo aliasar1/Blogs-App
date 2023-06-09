@@ -30,7 +30,7 @@ class _CustomSearchWidgetState extends State<CustomSearchWidget> {
         onChanged: widget.onFieldSubmit,
         validator: widget.validator,
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        style: const TextStyle(color: Constants.scaffoldBgColor),
+        style: const TextStyle(color: Constants.primaryColor),
         decoration: const InputDecoration(
           prefixIcon: Icon(
             Icons.search,

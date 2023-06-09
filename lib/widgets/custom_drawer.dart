@@ -1,3 +1,4 @@
+import 'package:blogs_app/views/boomark_screen.dart';
 import 'package:blogs_app/views/home_screen.dart';
 import 'package:blogs_app/views/myblogs_screen.dart';
 import 'package:flutter/material.dart';
@@ -84,7 +85,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   buildDrawerTile(
                     "Bookmarks",
                     Icons.bookmark,
-                    () {},
+                    () {
+                      Get.offAll(BookmarkSrceen());
+                    },
                   ),
                   buildDrawerTile("Logout", Icons.logout, () {
                     buildLogoutDialog(context);
