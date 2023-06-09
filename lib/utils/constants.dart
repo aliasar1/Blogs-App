@@ -14,8 +14,9 @@ class Constants {
   static const Color secondaryColor = Color.fromARGB(255, 115, 89, 231);
   static const Color lightSecondaryColor = Color.fromARGB(255, 148, 128, 238);
   static const Color scaffoldBgColor = Color.fromARGB(255, 224, 219, 219);
-  static const Color backgroundColor = Color.fromARGB(255, 170, 164, 164);
+  static const Color backgroundColor = Color.fromARGB(255, 209, 204, 204);
   static const Color whiteColor = Color(0xFFfefeff);
+  static const Color redColor = Color.fromARGB(255, 223, 61, 61);
 
   static const double paddingXS = 8.0;
   static const double paddingS = 12.0;

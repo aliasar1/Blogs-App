@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import '../models/blog_model.dart';
 import '../utils/constants.dart';
+import '../views/blog_overview_screen.dart';
 
 class BlogController extends GetxController {
   final RxList<Blog> _blogs = RxList<Blog>([]);
@@ -91,17 +92,17 @@ class BlogController extends GetxController {
       addFormKey.currentState!.save();
       toggleLoading();
       String id = await getUniqueId();
-      String? imageUrl;
-      if (_pickedImage.value != null) {
-        imageUrl = await _uploadToStorage(_pickedImage.value!, id);
-      }
+      // String? imageUrl;
+      // if (_pickedImage.value != null) {
+      //   imageUrl = await _uploadToStorage(_pickedImage.value!, id);
+      // }
 
       title = title.toLowerCase();
       Blog blog = Blog(
         id: id,
         title: title,
         description: description,
-        imageUrl: imageUrl ?? "",
+        // imageUrl: imageUrl ?? "",
         authorId: firebaseAuth.currentUser!.uid,
       );
       await firestore.collection('blogs').doc(id).set(blog.toJson());
@@ -137,24 +138,24 @@ class BlogController extends GetxController {
     String id,
     String title,
     String description,
-    String oldImageUrl,
-    File? image,
+    // String oldImageUrl,
+    // File? image,
     BlogController controller,
   ) async {
     toggleLoading();
-    String imageUrl = "";
-    if (image != null) {
-      imageUrl = await _updateToStorage(image, id);
-    } else {
-      imageUrl = oldImageUrl;
-    }
+    // String imageUrl = "";
+    // if (image != null) {
+    //   imageUrl = await _updateToStorage(image, id);
+    // } else {
+    //   imageUrl = oldImageUrl;
+    // }
 
     title = title.toLowerCase();
     Blog blog = Blog(
       id: id,
       title: title,
       description: description,
-      imageUrl: imageUrl,
+      // imageUrl: imageUrl,
       authorId: firebaseAuth.currentUser!.uid,
     );
 
@@ -167,7 +168,9 @@ class BlogController extends GetxController {
       _blogDescriptionRx.value = blog.description;
 
       toggleLoading();
-      // Get.offAll(BlogOverviewScreen(Blog: Blog, controller: controller));
+      Get.offAll(BlogOverviewScreen(
+        blog: blog,
+      ));
       Get.snackbar(
         'Blog Updated.',
         'You have successfully updated your Blog.',
@@ -177,8 +180,8 @@ class BlogController extends GetxController {
   }
 
   Future<void> deleteBlog(String blogId) async {
-    await firestore.collection('Blogs').doc(blogId).delete();
-    await firebaseStorage.ref().child('Blogs').child(blogId).delete();
+    await firestore.collection('blogs').doc(blogId).delete();
+    await firebaseStorage.ref().child('blogs').child(blogId).delete();
   }
 
   Future<void> toggleFavoriteStatus(Blog blog) async {

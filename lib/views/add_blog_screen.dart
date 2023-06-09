@@ -79,8 +79,8 @@ class _AddBlogScreennState extends State<AddBlogScreen> {
                     label: StringsManager.prodNameTxt,
                     controller: blogController.blogTitleController,
                     keyboardType: TextInputType.name,
+                    maxLength: 70,
                     textCapitalization: TextCapitalization.words,
-                    maxLength: 20,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return ErrorManager.kBlogNameNullError;
@@ -88,81 +88,85 @@ class _AddBlogScreennState extends State<AddBlogScreen> {
                       return null;
                     },
                   ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: const Txt(
-                      text: StringsManager.prodImgTxt,
-                      textAlign: TextAlign.start,
-                      color: Constants.primaryColor,
-                      fontSize: Constants.subTitleFontSize * 1.2,
-                    ),
-                  ),
                   const SizedBox(
                     height: Constants.sizeM,
                   ),
-                  widget.isEdit
-                      ? Obx(
-                          () => GestureDetector(
-                            onTap: () {
-                              blogController.pickImage();
-                            },
-                            child: blogController.posterPhoto != null
-                                ? SizedBox(
-                                    width: double.infinity,
-                                    height: Constants.sizeXXXL,
-                                    child: Image.file(
-                                      blogController.posterPhoto!,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  )
-                                : SizedBox(
-                                    width: double.infinity,
-                                    height: Constants.sizeXXXL,
-                                    child: Image.network(
-                                      widget.blog!.imageUrl,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                          ),
-                        )
-                      : Obx(
-                          () {
-                            return GestureDetector(
-                              onTap: () => blogController.pickImage(),
-                              child: blogController.posterPhoto != null
-                                  ? Image.file(
-                                      blogController.posterPhoto!,
-                                      fit: BoxFit.fill,
-                                    )
-                                  : Container(
-                                      width: double.infinity,
-                                      height: Constants.sizeXXL,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                      child: const Icon(
-                                        Icons.image,
-                                        color: Constants.secondaryColor,
-                                      ),
-                                    ),
-                            );
-                          },
-                        ),
-                  const SizedBox(
-                    height: Constants.sizeS,
-                  ),
+                  // Container(
+                  //   alignment: Alignment.centerLeft,
+                  //   child: const Txt(
+                  //     text: StringsManager.prodImgTxt,
+                  //     textAlign: TextAlign.start,
+                  //     color: Constants.primaryColor,
+                  //     fontSize: Constants.subTitleFontSize * 1.2,
+                  //   ),
+                  // ),
+                  // const SizedBox(
+                  //   height: Constants.sizeM,
+                  // ),
+                  // widget.isEdit
+                  //     ? Obx(
+                  //         () => GestureDetector(
+                  //           onTap: () {
+                  //             blogController.pickImage();
+                  //           },
+                  //           child: blogController.posterPhoto != null
+                  //               ? SizedBox(
+                  //                   width: double.infinity,
+                  //                   height: Constants.sizeXXXL,
+                  //                   child: Image.file(
+                  //                     blogController.posterPhoto!,
+                  //                     fit: BoxFit.cover,
+                  //                   ),
+                  //                 )
+                  //               : SizedBox(
+                  //                   width: double.infinity,
+                  //                   height: Constants.sizeXXXL,
+                  //                   child: Image.network(
+                  //                     widget.blog!.imageUrl,
+                  //                     fit: BoxFit.cover,
+                  //                   ),
+                  //                 ),
+                  //         ),
+                  //       )
+                  //     : Obx(
+                  //         () {
+                  //           return GestureDetector(
+                  //             onTap: () => blogController.pickImage(),
+                  //             child: blogController.posterPhoto != null
+                  //                 ? Image.file(
+                  //                     blogController.posterPhoto!,
+                  //                     fit: BoxFit.fill,
+                  //                   )
+                  //                 : Container(
+                  //                     width: double.infinity,
+                  //                     height: Constants.sizeXXL,
+                  //                     decoration: BoxDecoration(
+                  //                       borderRadius: BorderRadius.circular(10),
+                  //                       border: Border.all(
+                  //                         color: Colors.grey,
+                  //                       ),
+                  //                     ),
+                  //                     child: const Icon(
+                  //                       Icons.image,
+                  //                       color: Constants.secondaryColor,
+                  //                     ),
+                  //                   ),
+                  //           );
+                  //         },
+                  //       ),
+                  // const SizedBox(
+                  //   height: Constants.sizeS,
+                  // ),
                   UnderlineTextFormField(
                     label: StringsManager.descriptionTxt,
                     controller: blogController.blogDescriptionController,
                     keyboardType: TextInputType.multiline,
                     textCapitalization: TextCapitalization.sentences,
-                    maxLength: 300,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return ErrorManager.kDescriptionNullError;
+                      } else if (value.length <= 30) {
+                        return "Description length must be atlest 30";
                       }
                       return null;
                     },
@@ -196,8 +200,7 @@ class _AddBlogScreennState extends State<AddBlogScreen> {
                               widget.blog!.id,
                               name.toLowerCase(),
                               description,
-                              widget.blog!.imageUrl,
-                              blogController.posterPhoto,
+                              // blogController.posterPhoto,
                               blogController);
                         } else {
                           blogController.addBlog(name, description);

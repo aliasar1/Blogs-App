@@ -1,14 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Blog {
-  String title, description, imageUrl, id, authorId;
+  // String title, description, imageUrl, id, authorId;
+  String title, description, id, authorId;
 
   Blog({
     required this.title,
     required this.description,
     required this.id,
     required this.authorId,
-    this.imageUrl = "",
+    // this.imageUrl = "",
   });
 
   Map<String, dynamic> toJson() => {
@@ -16,7 +17,7 @@ class Blog {
         "description": description,
         "id": id,
         "authorId": authorId,
-        "imageUrl": imageUrl,
+        // "imageUrl": imageUrl,
       };
 
   static Blog fromSnap(DocumentSnapshot snap) {
@@ -26,7 +27,7 @@ class Blog {
       description: snapshot["description"],
       id: snapshot["id"],
       authorId: snapshot["authorId"],
-      imageUrl: snapshot["imageUrl"] ?? "",
+      // imageUrl: snapshot["imageUrl"] ?? "",
     );
   }
 
@@ -36,7 +37,7 @@ class Blog {
       description: map["description"],
       id: map["id"],
       authorId: map["authorId"],
-      imageUrl: map["imageUrl"] ?? "",
+      // imageUrl: map["imageUrl"] ?? "",
     );
   }
 }
