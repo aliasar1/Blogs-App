@@ -1,6 +1,7 @@
 import 'package:blogs_app/controllers/blog_controller.dart';
 import 'package:blogs_app/utils/extensions.dart';
 import 'package:blogs_app/views/add_blog_screen.dart';
+import 'package:blogs_app/views/boomark_screen.dart';
 import 'package:blogs_app/views/home_screen.dart';
 import 'package:blogs_app/views/myblogs_screen.dart';
 import 'package:flutter/material.dart';
@@ -13,10 +14,14 @@ import '../widgets/custom_text.dart';
 
 class BlogOverviewScreen extends StatelessWidget {
   BlogOverviewScreen(
-      {super.key, required this.blog, this.isHomePageRoute = false});
+      {super.key,
+      required this.blog,
+      this.isHomePageRoute = false,
+      this.isBookmarkRoute = false});
 
   final Blog blog;
   final bool isHomePageRoute;
+  final bool isBookmarkRoute;
   final controller = Get.put(BlogController());
 
   @override
@@ -25,15 +30,25 @@ class BlogOverviewScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Constants.scaffoldBgColor,
         appBar: AppBar(
+          title: Txt(
+            text: blog.title.capitalizeFirstOfEach,
+            textAlign: TextAlign.start,
+            fontWeight: Constants.bold,
+            color: Constants.primaryColor,
+          ),
           leading: IconButton(
             icon: const Icon(
               Icons.arrow_back,
               color: Constants.secondaryColor,
             ),
             onPressed: () {
-              isHomePageRoute
-                  ? Get.offAll(const HomeScreen())
-                  : Get.offAll(MyBlogsScreen());
+              if (isBookmarkRoute) {
+                Get.offAll(BookmarkSrceen());
+              } else if (isHomePageRoute) {
+                Get.offAll(const HomeScreen());
+              } else {
+                Get.offAll(MyBlogsScreen());
+              }
             },
           ),
           backgroundColor: Constants.scaffoldBgColor,
@@ -50,27 +65,30 @@ class BlogOverviewScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Txt(
-                  text: blog.title.capitalizeFirstOfEach,
-                  textAlign: TextAlign.start,
-                  fontWeight: Constants.bold,
-                  fontSize: Constants.titleFontSize,
-                  color: Constants.secondaryColor,
-                ),
-                const SizedBox(
-                  height: 6,
-                ),
-                Txt(
                   text: blog.description.capitalizeFirstOfEach,
                   textAlign: TextAlign.start,
                   fontWeight: Constants.regular,
                   fontSize: Constants.subTitleFontSize,
                   color: Constants.primaryColor,
                 ),
+                const SizedBox(
+                  height: 16,
+                ),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: Txt(
+                    text: "By: ${blog.authorName.capitalizeFirstOfEach}",
+                    textAlign: TextAlign.start,
+                    fontWeight: Constants.bold,
+                    fontSize: Constants.titleFontSize,
+                    color: Constants.primaryColor,
+                  ),
+                ),
               ],
             ),
           ),
         ),
-        floatingActionButton: isHomePageRoute
+        floatingActionButton: isHomePageRoute || isBookmarkRoute
             ? null
             : SpeedDial(
                 animatedIcon: AnimatedIcons.menu_close,

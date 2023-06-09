@@ -58,6 +58,7 @@ class BookmarkSrceen extends StatelessWidget {
                               final blog = favBlogs[i];
                               return BlogCard(
                                 blog: blog,
+                                isBookmarkRoute: true,
                                 isBookmark: true,
                               );
                             },

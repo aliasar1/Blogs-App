@@ -1,4 +1,5 @@
 import 'package:blogs_app/controllers/blog_controller.dart';
+import 'package:blogs_app/widgets/bookmark_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,9 +16,13 @@ class BlogCard extends StatelessWidget {
       {super.key,
       required this.blog,
       this.isHomePageRoute = false,
+      this.isBookmarkRoute = false,
+      this.isMyBlogsRoute = false,
       this.isBookmark = false});
 
   final bool isHomePageRoute;
+  final bool isBookmarkRoute;
+  final bool isMyBlogsRoute;
   final Blog blog;
   final bool isBookmark;
 
@@ -29,6 +34,7 @@ class BlogCard extends StatelessWidget {
       onTap: () {
         Get.to(BlogOverviewScreen(
           blog: blog,
+          isBookmarkRoute: isBookmarkRoute,
           isHomePageRoute: isHomePageRoute,
         ));
       },
@@ -80,23 +86,48 @@ class BlogCard extends StatelessWidget {
                       color: Constants.primaryColor,
                     ),
                     const SizedBox(
-                      height: 2,
+                      height: 5,
                     ),
-                    Container(
-                      alignment: Alignment.bottomRight,
-                      child: InkWell(
-                        onTap: () {
-                          controller.toggleFavoriteStatus(blog);
-                        },
-                        child: Icon(
-                          isBookmark
-                              ? Icons.bookmark
-                              : Icons.bookmark_add_outlined,
-                          color: Constants.secondaryColor,
-                          size: 30,
-                        ),
-                      ),
-                    ),
+                    isMyBlogsRoute
+                        ? Container(
+                            alignment: Alignment.bottomLeft,
+                            child: Txt(
+                              text:
+                                  "By: ${blog.authorName.capitalizeFirstOfEach}",
+                              textAlign: TextAlign.start,
+                              useOverflow: true,
+                              fontWeight: Constants.bold,
+                              fontSize: Constants.subTitleFontSize,
+                              color: Constants.primaryColor,
+                            ),
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                alignment: Alignment.bottomLeft,
+                                child: Txt(
+                                  text:
+                                      "By: ${blog.authorName.capitalizeFirstOfEach}",
+                                  textAlign: TextAlign.start,
+                                  useOverflow: true,
+                                  fontWeight: Constants.bold,
+                                  fontSize: Constants.subTitleFontSize,
+                                  color: Constants.primaryColor,
+                                ),
+                              ),
+                              Container(
+                                alignment: Alignment.bottomRight,
+                                child: InkWell(
+                                  onTap: () {
+                                    controller.toggleFavoriteStatus(blog);
+                                  },
+                                  child: BookmarkIcon(
+                                      blog: blog, blogController: controller),
+                                ),
+                              ),
+                            ],
+                          ),
                   ],
                 ),
               ),

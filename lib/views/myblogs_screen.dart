@@ -91,20 +91,17 @@ class _MyBlogsScreenState extends State<MyBlogsScreen> {
                           },
                         ),
                       );
-                    } else if (blogController.blogs.isEmpty) {
-                      return const Column(
-                        children: [
-                          SizedBox(height: Constants.sizeXL * 3),
-                          Center(
-                            child: Txt(
-                              text: "You haven't added any blog.",
-                              textAlign: TextAlign.center,
-                              fontWeight: Constants.regular,
-                              fontSize: Constants.textFontSize,
-                              color: Constants.primaryColor,
-                            ),
-                          )
-                        ],
+                    } else if (blogController.myBlogs.isEmpty) {
+                      return const Expanded(
+                        child: Center(
+                          child: Txt(
+                            text: "You haven't added any blog.",
+                            textAlign: TextAlign.center,
+                            fontWeight: Constants.regular,
+                            fontSize: Constants.textFontSize,
+                            color: Constants.primaryColor,
+                          ),
+                        ),
                       );
                     } else {
                       return Expanded(
@@ -113,7 +110,10 @@ class _MyBlogsScreenState extends State<MyBlogsScreen> {
                           itemCount: blogController.myBlogs.length,
                           itemBuilder: (ctx, i) {
                             final blog = blogController.myBlogs[i];
-                            return BlogCard(blog: blog);
+                            return BlogCard(
+                              blog: blog,
+                              isMyBlogsRoute: true,
+                            );
                           },
                         ),
                       );

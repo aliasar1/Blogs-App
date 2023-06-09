@@ -8,7 +8,7 @@ import '../controllers/auth_controller.dart';
 import '../controllers/profile_controller.dart';
 import '../utils/constants.dart';
 import '../views/login_screen.dart';
-import '../views/profile_screen.dart';
+// import '../views/profile_screen.dart';
 import 'custom_text.dart';
 
 class CustomDrawer extends StatefulWidget {
@@ -51,7 +51,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     backgroundColor: Constants.lightSecondaryColor,
                     backgroundImage: controller.user['profilePhoto'] == ""
                         ? const NetworkImage(
-                            'https://www.pngitem.com/pimgs/m/150-1503945_transparent-user-png-default-user-image-png-png.png')
+                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2oc-MGRrIdcTSdt62bRT35XS4hhxffnPknTSPOkS_XEicT7ZkU42wWlTK-CAwPTWJ0PU&usqp=CAU')
                         : NetworkImage(
                             controller.user['profilePhoto'],
                           ),
@@ -65,9 +65,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   ),
                   const SizedBox(height: 10),
                   const Divider(),
-                  buildDrawerTile("Profile", Icons.person, () {
-                    Get.offAll(const ProfileScreen());
-                  }),
+                  // buildDrawerTile("Profile", Icons.person, () {
+                  //   Get.offAll(const ProfileScreen());
+                  // }),
                   buildDrawerTile(
                     "All Blogs",
                     Icons.library_books,

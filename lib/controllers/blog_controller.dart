@@ -1,10 +1,12 @@
 import 'dart:io';
 
+import 'package:blogs_app/views/myblogs_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import '../models/blog_model.dart';
+import '../models/user_model.dart';
 import '../utils/constants.dart';
 import '../views/blog_overview_screen.dart';
 
@@ -98,17 +100,27 @@ class BlogController extends GetxController {
       // }
 
       title = title.toLowerCase();
+
+      var userDetails = await firestore
+          .collection('users')
+          .doc(firebaseAuth.currentUser!.uid)
+          .get();
+
+      User user = User.fromSnap(userDetails);
+
       Blog blog = Blog(
         id: id,
         title: title,
         description: description,
         // imageUrl: imageUrl ?? "",
         authorId: firebaseAuth.currentUser!.uid,
+        authorName: user.name,
+        authorEmail: user.email,
       );
       await firestore.collection('blogs').doc(id).set(blog.toJson());
       toggleLoading();
       _myBlogs.add(blog);
-      Get.back();
+      Get.offAll(MyBlogsScreen());
       Get.snackbar(
         'Success!',
         'Blog added successfully.',
@@ -150,6 +162,13 @@ class BlogController extends GetxController {
     //   imageUrl = oldImageUrl;
     // }
 
+    var userDetails = await firestore
+        .collection('users')
+        .doc(firebaseAuth.currentUser!.uid)
+        .get();
+
+    User user = User.fromSnap(userDetails);
+
     title = title.toLowerCase();
     Blog blog = Blog(
       id: id,
@@ -157,6 +176,8 @@ class BlogController extends GetxController {
       description: description,
       // imageUrl: imageUrl,
       authorId: firebaseAuth.currentUser!.uid,
+      authorName: user.name,
+      authorEmail: user.email,
     );
 
     await firestore
@@ -164,9 +185,6 @@ class BlogController extends GetxController {
         .doc(id)
         .update(blog.toJson())
         .whenComplete(() {
-      _blogNameRx.value = blog.title;
-      _blogDescriptionRx.value = blog.description;
-
       toggleLoading();
       Get.offAll(BlogOverviewScreen(
         blog: blog,

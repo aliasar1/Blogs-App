@@ -87,13 +87,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       );
                     } else if (blogController.blogs.isEmpty) {
-                      return const Center(
-                        child: Txt(
-                          text: "No blogs are available.",
-                          textAlign: TextAlign.center,
-                          fontWeight: Constants.regular,
-                          fontSize: Constants.textFontSize,
-                          color: Constants.primaryColor,
+                      return const Expanded(
+                        child: Center(
+                          child: Txt(
+                            text: "No blogs are available.",
+                            textAlign: TextAlign.center,
+                            fontWeight: Constants.regular,
+                            fontSize: Constants.textFontSize,
+                            color: Constants.primaryColor,
+                          ),
                         ),
                       );
                     } else {
