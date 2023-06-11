@@ -1,4 +1,3 @@
-import 'package:blogs_app/local/cache_manager.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,7 +7,7 @@ import '../models/user_model.dart' as model;
 import '../views/home_screen.dart';
 import '../views/login_screen.dart';
 
-class AuthenticateController extends GetxController with CacheManager {
+class AuthenticateController extends GetxController {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
@@ -38,9 +37,8 @@ class AuthenticateController extends GetxController with CacheManager {
         await firebaseAuth.signInWithEmailAndPassword(
             email: email, password: password);
 
-        setIsLogin(true);
         toggleLoading();
-        Get.offAll(HomeScreen());
+        Get.offAll(const HomeScreen());
       }
     } catch (err) {
       toggleLoading();
@@ -83,7 +81,7 @@ class AuthenticateController extends GetxController with CacheManager {
           'Success!',
           'Account created successfully.',
         );
-        Get.offAll(HomeScreen());
+        Get.offAll(const HomeScreen());
 
         clearfields();
       }
@@ -99,16 +97,14 @@ class AuthenticateController extends GetxController with CacheManager {
   Future<void> checkLoginStatus() async {
     firebaseAuth.idTokenChanges().listen((User? user) {
       if (user == null) {
-        removeToken();
         Get.offAll(const LoginScreen());
       } else {
-        Get.offAll(HomeScreen());
+        Get.offAll(const HomeScreen());
       }
     });
   }
 
   void logout() async {
-    removeToken();
     await firebaseAuth.signOut();
   }
 

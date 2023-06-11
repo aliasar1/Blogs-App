@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
     return const GetMaterialApp(
       title: Constants.appName,
       debugShowCheckedModeBanner: false,
+      smartManagement: SmartManagement.full,
       home: SplashhScreen(),
     );
   }
