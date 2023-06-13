@@ -33,41 +33,66 @@ GetX is used for state management, providing reactive updates to the view whenev
 ## Screenshots
 
 ### Splash Screen
-![image](https://github.com/aliasar1/Blogs-App/assets/74453775/24ba123a-e0ca-4e23-87b9-f055f9448d4a)
+<p align="center">
+  <img src="https://github.com/aliasar1/Blogs-App/blob/main/repo_assets/splash.png" alt="Splash Screen">
+</p>
 
 ### Login Screnn
-![image](https://github.com/aliasar1/Blogs-App/assets/74453775/c552011a-8ec9-429f-aab4-543e42d87623)
+<p align="center">
+  <img src="https://github.com/aliasar1/Blogs-App/blob/main/repo_assets/login.png" alt="Login Screen">
+</p>
 
 ### Signup Screen
-![image](https://github.com/aliasar1/Blogs-App/assets/74453775/012c3dc0-6dd6-4806-8db0-9e47960a45f5)
+<p align="center">
+  <img src="https://github.com/aliasar1/Blogs-App/blob/main/repo_assets/signup.png" alt="Signup Screen">
+</p>
 
 ### All Blogs Screen
-![image](https://github.com/aliasar1/Blogs-App/assets/74453775/8088dbb7-99a7-42da-a496-581d10c6614c)
+<p align="center">
+  <img src="https://github.com/aliasar1/Blogs-App/blob/main/repo_assets/all_blogs.png" alt="All Blogs Screen">
+</p>
 
 ### My Blogs Screen
-![image](https://github.com/aliasar1/Blogs-App/assets/74453775/79964f04-c445-45e0-b994-78e8256c4136)
+<p align="center">
+  <img src="https://github.com/aliasar1/Blogs-App/blob/main/repo_assets/my_blogs.png" alt="My Blogs Screen">
+</p>
 
 ### Add Blog Screen
-![image](https://github.com/aliasar1/Blogs-App/assets/74453775/eaac70c2-d70b-4ee3-bfc0-92eadb5edbad)
+<p align="center">
+  <img src="https://github.com/aliasar1/Blogs-App/blob/main/repo_assets/add_blog.png" alt="Add Blogs Screen">
+</p>
 
 ### Blog Details Screen
-![image](https://github.com/aliasar1/Blogs-App/assets/74453775/e241d567-7599-47e0-96b1-4a9f788b1852)
-![image](https://github.com/aliasar1/Blogs-App/assets/74453775/4c7e613c-23fa-4d6c-8c01-1a1857bdad1c)
+<p align="center">
+  <img src="https://github.com/aliasar1/Blogs-App/blob/main/repo_assets/blog_overview.png" alt="Blogs overview Screen">
+  <img src="https://github.com/aliasar1/Blogs-App/blob/main/repo_assets/blog_overview_2.png" alt="Blogs overview Screen">
+  <img src="https://github.com/aliasar1/Blogs-App/blob/main/repo_assets/blog_overview_3.png" alt="Blogs overview Screen">
+</p>
 
 ### Delete Blog Screen
-![image](https://github.com/aliasar1/Blogs-App/assets/74453775/1abcc5bb-f236-4b52-8fd1-ac472239d63f)
+<p align="center">
+  <img src="https://github.com/aliasar1/Blogs-App/blob/main/repo_assets/delete_blog.png" alt="Delete Blog Screen">
+</p>
 
 ### Edit Blog Screen
-![image](https://github.com/aliasar1/Blogs-App/assets/74453775/80bf0570-a2c3-4eb5-b1c0-f45fc65fd1e0)
+<p align="center">
+  <img src="https://github.com/aliasar1/Blogs-App/blob/main/repo_assets/edit_blog.png" alt="Edit Blog Screen">
+</p>
 
 ### Bookmark Screen
-![image](https://github.com/aliasar1/Blogs-App/assets/74453775/8afbede3-7af3-4f8e-9a19-a70184d8cd4f)
+<p align="center">
+  <img src="https://github.com/aliasar1/Blogs-App/blob/main/repo_assets/bookmark.png" alt="Bookmark Blog Screen">
+</p>
 
 ### Drawer For Screen Navigation
-![image](https://github.com/aliasar1/Blogs-App/assets/74453775/5fbf1456-a0a5-478c-98ae-e254c85bd9a7)
+<p align="center">
+  <img src="https://github.com/aliasar1/Blogs-App/blob/main/repo_assets/drawer.png" alt="Drawer">
+</p>
 
 ### Logout
-![image](https://github.com/aliasar1/Blogs-App/assets/74453775/1d739a42-2d5d-4cab-830f-291f645e9bed)
+<p align="center">
+  <img src="https://github.com/aliasar1/Blogs-App/blob/main/repo_assets/logout.png" alt="Logout Screen">
+</p>
 
 ## Getting Started
 
